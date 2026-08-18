@@ -1,18 +1,25 @@
 package xyz.paintingthefish.chatti;
 
-import org.ini4j.Wini;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.net.http.HttpClient;
+import org.java_websocket.server.WebSocketServer;
+import org.java_websocket.WebSocket;
+import org.java_websocket.handshake.ClientHandshake;
+import java.net.InetSocketAddress;
 import java.util.*;
 
-public class Server {
-    public static void main() {
-        String os = System.getProperty("os.name").toLowerCase();
+public class Server extends WebSocketServer {
+    public void onStart() {
+        System.err.println("Server starting on port " + String.valueOf(getPort()));
+    }
 
-        if (os.contains("nux")) {
-        }
+    public void onClose(WebSocket conn, int code, String reason, boolean remote) {
+        System.err.printf("[INFO] client disconnected. (code %d)", code);
+    }
+
+    public void onError(WebSocket conn, Exception err) {}
+
+    public void onMessage(WebSocket conn, String msg) {}
+
+    public void onOpen(WebSocket conn, ClientHandshake handshake) {
+        conn.setAttachment("");
     }
 }
