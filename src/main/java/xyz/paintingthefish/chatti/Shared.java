@@ -11,9 +11,12 @@ import java.nio.file.Paths;
 import org.ini4j.Wini;
 
 public class Shared {
+
+    public final int default_port = 1997;
+
     enum CLIArgStyles {
-        EQSign,
-        Seperate
+        EqualSign,
+        Separate
     }
 
     public static boolean hasFlag(String[] args, String rflag, boolean case_sensitive) {
@@ -46,20 +49,22 @@ public class Shared {
     public static String getValue(String[] args, String key, CLIArgStyles argStyle) {
         int i = 0;
 
-        if (argStyle == CLIArgStyles.Seperate) {
+        if (argStyle == CLIArgStyles.Separate) {
             for (String arg : args) {
                 if (arg.equals(key)) {
                     return args[i + 1];
                 }
                 i++;
             }
-        } else {
+        } else if (argStyle == CLIArgStyles.EqualSign) {
             for (String arg : args) {
                 if (arg.startsWith(key + "=")) {
                     return arg.split("=")[1];
                 }
                 i++;
             }
+        } else {
+            System.err.println("UNRECOGNIZED CLIArgStyles member"); // Should not be achievable but better safe than sorry
         }
         return null;
     }
