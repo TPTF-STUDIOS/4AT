@@ -1,9 +1,6 @@
 package xyz.paintingthefish.chatti;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
+import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -138,6 +135,17 @@ public class Shared {
             }
         } catch (IOException e) {
             System.out.println("[ERROR] Invalid file type or read failure: " + e.getMessage());
+            return new Wini();
+        }
+    }
+
+    public static Wini get_wini_from_str(String str) {
+        try {
+            Wini wini = new Wini();
+            wini.load(new StringReader(str));
+            return wini;
+        } catch (Exception e) {
+            System.err.println("[ERROR] " + e.toString());
             return new Wini();
         }
     }
