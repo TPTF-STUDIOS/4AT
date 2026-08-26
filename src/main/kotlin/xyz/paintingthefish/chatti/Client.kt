@@ -19,7 +19,6 @@ import kotlin.math.roundToInt
 /**
  * 
  * @author To Paint The Fish Studios™
- * @version 0.0.0
  * @see ServerWrapper
  * 
  * @see xyz.paintingthefish.chatti.ChattiServer

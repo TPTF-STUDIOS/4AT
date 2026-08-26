@@ -33,6 +33,7 @@ object ServerWrapper {
         ) {
             val cfg: Wini =
                 Shared.getIniFromFpath(System.getProperty("user.home") + "/.chatti/server/config.ini")
+            println("Welcome to the CHATTi provider setup wizard!")
             var defaultValue: Any = Objects.requireNonNullElse<String>(cfg.get("info", "name"), "CHATTiProvider")
             System.out.printf(
                 "What would you like the provider to be named? (may be changed by clients you authorize)? (%s)\n>> ",

@@ -10,7 +10,7 @@
         <directory>src/main/resources</directory>
       </resource>
       <resource>
-        <directory>src/main/java</directory>
+        <directory>src/main/kotlin</directory>
         <includes>
           <include>**/*.png</include>
         </includes>

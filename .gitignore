@@ -1,4 +1,6 @@
 *.class
 *.jar
+*.jks
+*.keystore
 .idea
 target

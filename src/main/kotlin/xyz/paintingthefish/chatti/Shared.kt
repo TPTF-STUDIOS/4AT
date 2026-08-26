@@ -10,8 +10,11 @@ import java.nio.file.Path
 import java.nio.file.Paths
 import java.util.*
 
+/**
+ * @author To Paint The Fish Studios™
+ * @version 1.0
+ */
 class Shared {
-    val defaultPort: Int = 1997
 
     enum class CLIArgStyles {
         EqualSign,
@@ -19,6 +22,7 @@ class Shared {
     }
 
     companion object {
+        const val defaultPort: Int = 1997
         fun getVersion(): String {
             return Shared::class.java.`package`.implementationVersion ?: "IDKMAN"
         }

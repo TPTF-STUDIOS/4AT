@@ -8,7 +8,7 @@ import java.net.InetSocketAddress
 import java.nio.ByteBuffer
 
 class ChattiServer(conf: Wini?, recentMessageCacheSize: Int) :
-    WebSocketServer(InetSocketAddress("127.0.0.1", 1997)) {
+    WebSocketServer(InetSocketAddress("127.0.0.1", Shared.defaultPort)) {
     var recentMessagesBuffer: RecentMessages? = RecentMessages(recentMessageCacheSize)
     var cfg: Wini? = conf
 
