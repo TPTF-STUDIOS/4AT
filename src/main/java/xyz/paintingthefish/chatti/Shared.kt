@@ -19,6 +19,9 @@ class Shared {
     }
 
     companion object {
+        fun getVersion(): String {
+            return Shared::class.java.`package`.implementationVersion ?: "IDKMAN"
+        }
         fun hasFlag(args: Array<String>, rawFlag: String, caseSensitive: Boolean): Boolean {
             var flag = rawFlag
             if (!caseSensitive) {
@@ -52,7 +55,12 @@ class Shared {
             if (argStyle == CLIArgStyles.Separate) {
                 for (arg in args) {
                     if (arg == key) {
-                        return args[i + 1]
+                        try {
+                            return args[i + 1]
+                        } catch (e: ArrayIndexOutOfBoundsException) {
+                            println("[ERROR] Fuck you.")
+                            throw e
+                        }
                     }
                     i++
                 }

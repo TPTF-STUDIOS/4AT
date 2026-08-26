@@ -3,6 +3,8 @@ package xyz.paintingthefish.chatti
 import org.ini4j.Wini
 import java.io.File
 import java.util.*
+import org.sqlite.*;
+import java.sql.Connection
 import kotlin.system.exitProcess
 
 /**
@@ -13,7 +15,6 @@ import kotlin.system.exitProcess
  */
 object ServerWrapper {
     private val server_instance: ChattiServer? = null
-    private const val dataBaseFormatting: String = "jdbc:sqlite:%s"
 
     @JvmStatic
     fun main(args: Array<String>) {
@@ -25,13 +26,13 @@ object ServerWrapper {
         }
 
 
-        if ((!File(System.getProperty("user.home") + "/.chatti/server/config.ini").exists()) || Shared.Companion.hasFlag(
+        if ((!File(System.getProperty("user.home") + "/.chatti/server/config.ini").exists()) || Shared.hasFlag(
                 args,
                 "--setup"
             )
         ) {
             val cfg: Wini =
-                Shared.Companion.getIniFromFpath(System.getProperty("user.home") + "/.chatti/server/config.ini")
+                Shared.getIniFromFpath(System.getProperty("user.home") + "/.chatti/server/config.ini")
             var defaultValue: Any = Objects.requireNonNullElse<String>(cfg.get("info", "name"), "CHATTiProvider")
             System.out.printf(
                 "What would you like the provider to be named? (may be changed by clients you authorize)? (%s)\n>> ",
@@ -40,7 +41,7 @@ object ServerWrapper {
             cfg.put(
                 "info",
                 "name",
-                if (Shared.Companion.isNullOrEmpty(input.nextLine())) defaultValue else input.nextLine()
+                if (Shared.isNullOrEmpty(input.nextLine())) defaultValue else input.nextLine()
             )
             defaultValue = Objects.requireNonNullElse<String>(
                 cfg.get("info", "name"),
@@ -55,11 +56,13 @@ object ServerWrapper {
             )
             cfg.put(
                 "info",
-                "port",
-                if (Shared.Companion.isNullOrEmpty(input.nextLine())) defaultValue else input.nextLine()
+                "db",
+                if (Shared.isNullOrEmpty(input.nextLine())) defaultValue else input.nextLine()
             )
+            // "jdbc:sqlite:${cfg.get("info", "db")}"
+            val server = ChattiServer(cfg, 130308); // closest approx. messages to fit in 256MiB
         }
         val cfg: Wini =
-            Shared.Companion.getIniFromFpath(System.getProperty("user.home") + "/.chatti/server/config.ini")
+            Shared.getIniFromFpath(System.getProperty("user.home") + "/.chatti/server/config.ini")
     }
 }

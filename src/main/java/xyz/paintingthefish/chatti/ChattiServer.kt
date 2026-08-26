@@ -5,9 +5,10 @@ import org.java_websocket.WebSocket
 import org.java_websocket.handshake.ClientHandshake
 import org.java_websocket.server.WebSocketServer
 import java.net.InetSocketAddress
+import java.nio.ByteBuffer
 
 class ChattiServer(conf: Wini?, recentMessageCacheSize: Int) :
-    WebSocketServer(InetSocketAddress("127.0.0.1", 8080)) {
+    WebSocketServer(InetSocketAddress("127.0.0.1", 1997)) {
     var recentMessagesBuffer: RecentMessages? = RecentMessages(recentMessageCacheSize)
     var cfg: Wini? = conf
 
@@ -27,8 +28,8 @@ class ChattiServer(conf: Wini?, recentMessageCacheSize: Int) :
         conn.close()
     }
 
-    override fun onMessage(conn: WebSocket?, msg: String?) {
-        print(msg)
+    override fun onMessage(conn: WebSocket?, message: String?) {
+        print(message!!)
     }
 
     override fun onOpen(conn: WebSocket, handshake: ClientHandshake?) {

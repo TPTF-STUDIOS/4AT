@@ -30,7 +30,7 @@ object Client {
 
     fun initWindow() {
         val screenSize = Toolkit.getDefaultToolkit().screenSize
-        window = JFrame("CHATTi")
+        window = JFrame("CHATTiV${Shared.getVersion()}")
         val icon: BufferedImage?
         try {
             val imgStream = Client::class.java.getResourceAsStream("/xyz/paintingthefish/chatti/images/icon.png")
@@ -47,7 +47,7 @@ object Client {
         window!!.defaultCloseOperation = JFrame.EXIT_ON_CLOSE
         window!!.setSize((screenSize.width / 2.0).roundToInt(), (screenSize.height / 2.0).roundToInt())
         window!!.layout = BorderLayout()
-        val loadingTexts = arrayOf<JLabel>(JLabel("CHATTi™"), JLabel("Loading"))
+        val loadingTexts = arrayOf<JLabel>(JLabel("CHATTiV${Shared.getVersion()}™"), JLabel("Loading"))
         loadingTexts[0].setFont(Font("Arial", Font.BOLD, 40))
         loadingTexts[1].setFont(Font("Arial", Font.ITALIC, 40))
         window!!.add(loadingTexts[0], BorderLayout.CENTER)
@@ -58,11 +58,11 @@ object Client {
     @JvmStatic
     fun main(args: Array<String>) {
         val os = System.getProperty("os.name").lowercase(Locale.getDefault())
-        System.out.printf("CHATTi\nproduct of To Paint The Fish Studios™\n%s\n", os)
+        System.out.printf("CHATTiV${Shared.getVersion()}\nproduct of To Paint The Fish Studios™\n%s\n", os)
 
         if (os.contains("nux")) {
             main_cfg =
-                Shared.Companion.getIniFromFpath(Paths.get(System.getProperty("user.home") + "/.chatti/client/config.ini"))
+                Shared.getIniFromFpath(Paths.get(System.getProperty("user.home") + "/.chatti/client/config.ini"))
         }
         initWindow()
 
