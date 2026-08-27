@@ -20,6 +20,7 @@ object Server {
     fun main(args: Array<String>) {
         val input = Scanner(System.`in`)
         val os = System.getProperty("os.name").lowercase(Locale.getDefault())
+        System.out.printf("CHATTiV${Shared.getVersion()} Server Software\nproduct of To Paint The Fish Studios™\n%s\n", os)
 
         if (!os.contains("nux")) {
             System.err.println("[ERROR] CHATTi Server software only runs on linux");
