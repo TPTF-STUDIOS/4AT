@@ -70,20 +70,24 @@
 
         <plugins>
 
-            <!-- Kotlin -->
+            <!-- Kotlin Plugin Configuration -->
             <plugin>
                 <groupId>org.jetbrains.kotlin</groupId>
                 <artifactId>kotlin-maven-plugin</artifactId>
                 <version>${kotlin.version}</version>
 
                 <executions>
-
                     <execution>
                         <id>compile</id>
                         <phase>compile</phase>
                         <goals>
                             <goal>compile</goal>
                         </goals>
+                        <configuration>
+                            <sourceDirs>
+                                <sourceDir>${project.basedir}/src/main/kotlin</sourceDir>
+                            </sourceDirs>
+                        </configuration>
                     </execution>
 
                     <execution>
@@ -92,8 +96,12 @@
                         <goals>
                             <goal>test-compile</goal>
                         </goals>
+                        <configuration>
+                            <sourceDirs>
+                                <sourceDir>${project.basedir}/src/test/kotlin</sourceDir>
+                            </sourceDirs>
+                        </configuration>
                     </execution>
-
                 </executions>
 
                 <configuration>
@@ -101,55 +109,78 @@
                 </configuration>
             </plugin>
 
-            <!-- Java -->
+            <!-- Java Compiler (Runs after Kotlin) -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.14.0</version>
-
                 <configuration>
                     <release>21</release>
                 </configuration>
             </plugin>
 
-            <!-- Executable/fat JAR -->
+            <!-- Executable/fat JAR Configurations -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-shade-plugin</artifactId>
                 <version>3.6.1</version>
 
                 <executions>
+
+                    <!-- JAR 1: Default Client Setup -->
                     <execution>
+                        <id>shade-client</id>
                         <phase>package</phase>
                         <goals>
                             <goal>shade</goal>
                         </goals>
-
                         <configuration>
-
                             <createDependencyReducedPom>false</createDependencyReducedPom>
-
+                            <shadedArtifactAttached>true</shadedArtifactAttached>
+                            <shadedClassifierName>client</shadedClassifierName>
+                            <outputFile>${project.build.directory}/${project.artifactId}-1.0-client.jar</outputFile>
                             <transformers>
-
                                 <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
                                     <mainClass>${main.class}</mainClass>
-                                    <!-- ADD THIS BLOCK BELOW -->
                                     <manifestEntries>
-                                        <Implementation-Title>${project.artifactId}</Implementation-Title>
+                                        <Implementation-Title>${project.artifactId}-client</Implementation-Title>
                                         <Implementation-Version>${project.version}</Implementation-Version>
                                     </manifestEntries>
                                 </transformer>
-
                             </transformers>
-
                         </configuration>
                     </execution>
+
+                    <!-- JAR 2: Server Entrypoint -->
+                    <execution>
+                        <id>shade-server</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>shade</goal>
+                        </goals>
+                        <configuration>
+                            <createDependencyReducedPom>false</createDependencyReducedPom>
+                            <shadedArtifactAttached>true</shadedArtifactAttached>
+                            <shadedClassifierName>server</shadedClassifierName>
+                            <outputFile>${project.build.directory}/${project.artifactId}-1.0-server.jar</outputFile>
+                            <transformers>
+                                <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+                                    <mainClass>xyz.paintingthefish.chatti.Server</mainClass>
+                                    <manifestEntries>
+                                        <Implementation-Title>${project.artifactId}-server</Implementation-Title>
+                                        <Implementation-Version>${project.version}</Implementation-Version>
+                                    </manifestEntries>
+                                </transformer>
+                            </transformers>
+                        </configuration>
+                    </execution>
+
                 </executions>
             </plugin>
-
 
         </plugins>
 
     </build>
+
 
 </project>

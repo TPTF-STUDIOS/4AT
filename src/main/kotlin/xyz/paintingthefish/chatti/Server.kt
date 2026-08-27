@@ -13,7 +13,7 @@ import kotlin.system.exitProcess
  * @version 0.0.0
  * @see Client
  */
-object ServerWrapper {
+object Server {
     private val server_instance: ChattiServer? = null
 
     @JvmStatic
@@ -22,6 +22,7 @@ object ServerWrapper {
         val os = System.getProperty("os.name").lowercase(Locale.getDefault())
 
         if (!os.contains("nux")) {
+            System.err.println("[ERROR] CHATTi Server software only runs on linux");
             exitProcess(1)
         }
 
