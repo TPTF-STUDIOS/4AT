@@ -5,9 +5,8 @@ import org.java_websocket.WebSocket
 import org.java_websocket.handshake.ClientHandshake
 import org.java_websocket.server.WebSocketServer
 import java.net.InetSocketAddress
-import java.nio.ByteBuffer
 
-class ChattiServer(conf: Wini?, recentMessageCacheSize: Int) :
+class ServerClass(conf: Wini?, recentMessageCacheSize: Int) :
     WebSocketServer(InetSocketAddress("127.0.0.1", Shared.defaultPort)) {
     var recentMessagesBuffer: RecentMessages? = RecentMessages(recentMessageCacheSize)
     var cfg: Wini? = conf

@@ -21,7 +21,7 @@ import kotlin.math.roundToInt
  * @author To Paint The Fish Studios™
  * @see ServerWrapper
  * 
- * @see xyz.paintingthefish.chatti.ChattiServer
+ * @see xyz.paintingthefish.chatti.ServerClass
  */
 object Client {
     var main_cfg: Wini? = null

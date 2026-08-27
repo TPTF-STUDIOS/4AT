@@ -3,8 +3,6 @@ package xyz.paintingthefish.chatti
 import org.ini4j.Wini
 import java.io.File
 import java.util.*
-import org.sqlite.*;
-import java.sql.Connection
 import kotlin.system.exitProcess
 
 /**
@@ -14,7 +12,7 @@ import kotlin.system.exitProcess
  * @see Client
  */
 object Server {
-    private val server_instance: ChattiServer? = null
+    private val server_instance: ServerClass? = null
 
     @JvmStatic
     fun main(args: Array<String>) {
@@ -63,7 +61,7 @@ object Server {
                 if (Shared.isNullOrEmpty(input.nextLine())) defaultValue else input.nextLine()
             )
             // "jdbc:sqlite:${cfg.get("info", "db")}"
-            val server = ChattiServer(cfg, 130308); // closest approx. messages to fit in 256MiB
+            val server = ServerClass(cfg, 130308); // closest approx. messages to fit in 256MiB
         }
         val cfg: Wini =
             Shared.getIniFromFpath(System.getProperty("user.home") + "/.chatti/server/config.ini")
