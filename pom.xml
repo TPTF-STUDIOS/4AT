@@ -15,7 +15,7 @@
         <maven.compiler.release>21</maven.compiler.release>
 
         <kotlin.version>2.3.20</kotlin.version>
-        <main.class>xyz.paintingthefish.chatti.Client</main.class>
+        <main.class>xyz.paintingthefish.chat.Client</main.class>
     </properties>
 
     <dependencies>
@@ -165,7 +165,7 @@
                             <outputFile>${project.build.directory}/${project.artifactId}-1.0-server.jar</outputFile>
                             <transformers>
                                 <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
-                                    <mainClass>xyz.paintingthefish.chatti.Server</mainClass>
+                                    <mainClass>xyz.paintingthefish.chat.Server</mainClass>
                                     <manifestEntries>
                                         <Implementation-Title>${project.artifactId}-server</Implementation-Title>
                                         <Implementation-Version>${project.version}</Implementation-Version>

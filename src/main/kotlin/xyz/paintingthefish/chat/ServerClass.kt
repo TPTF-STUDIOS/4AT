@@ -1,4 +1,4 @@
-package xyz.paintingthefish.chatti
+package xyz.paintingthefish.chat
 
 import org.ini4j.Wini
 import org.java_websocket.WebSocket
@@ -7,12 +7,12 @@ import org.java_websocket.server.WebSocketServer
 import java.net.InetSocketAddress
 
 class ServerClass(conf: Wini?, recentMessageCacheSize: Int) :
-    WebSocketServer(InetSocketAddress("127.0.0.1", Shared.defaultPort)) {
+    WebSocketServer(InetSocketAddress("::", Shared.defaultPort)) {
     var recentMessagesBuffer: RecentMessages? = RecentMessages(recentMessageCacheSize)
     var cfg: Wini? = conf
 
     override fun onStart() {
-        System.err.println("CHATTi server starting on port " + getPort().toString())
+        System.err.println("ЧAT server starting on port " + getPort().toString())
     }
 
     override fun onClose(conn: WebSocket, code: Int, reason: String?, remote: Boolean) {

@@ -40,7 +40,7 @@
   </build>
   <properties>
     <maven.compiler.release>21</maven.compiler.release>
-    <exec.mainClass>xyz.paintingthefish.chatti.Client</exec.mainClass>
+    <exec.mainClass>xyz.paintingthefish.chat.Client</exec.mainClass>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
 </project>

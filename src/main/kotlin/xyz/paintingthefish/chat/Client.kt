@@ -1,4 +1,4 @@
-package xyz.paintingthefish.chatti
+package xyz.paintingthefish.chat
 
 import org.ini4j.Wini
 import java.awt.BorderLayout
@@ -19,9 +19,9 @@ import kotlin.math.roundToInt
 /**
  * 
  * @author To Paint The Fish Studios™
- * @see ServerWrapper
+ * @see Server for server software
  * 
- * @see xyz.paintingthefish.chatti.ServerClass
+ * @see xyz.paintingthefish.chat.ServerClass
  */
 object Client {
     var main_cfg: Wini? = null
@@ -29,10 +29,10 @@ object Client {
 
     fun initWindow() {
         val screenSize = Toolkit.getDefaultToolkit().screenSize
-        window = JFrame("CHATTiV${Shared.getVersion()}")
+        window = JFrame("ЧATV${Shared.getVersion()}")
         val icon: BufferedImage?
         try {
-            val imgStream = Client::class.java.getResourceAsStream("/xyz/paintingthefish/chatti/images/icon.png")
+            val imgStream = Client::class.java.getResourceAsStream("/xyz/paintingthefish/chat/images/icon.png")
             if (imgStream == null) {
                 System.err.println("[ERROR] COULD NOT LOAD `icon.png`")
             } else {
@@ -42,11 +42,11 @@ object Client {
         } catch (e: IOException) {
             println("[ERROR] could not load images/icon.png :I using default Swing icon.")
         }
-        window!!.name = "CHATTi"
+        window!!.name = "ЧAT"
         window!!.defaultCloseOperation = JFrame.EXIT_ON_CLOSE
         window!!.setSize((screenSize.width / 2.0).roundToInt(), (screenSize.height / 2.0).roundToInt())
         window!!.layout = BorderLayout()
-        val loadingTexts = arrayOf<JLabel>(JLabel("CHATTiV${Shared.getVersion()}™"), JLabel("Loading"))
+        val loadingTexts = arrayOf<JLabel>(JLabel("ЧATV${Shared.getVersion()}™"), JLabel("Loading"))
         loadingTexts[0].setFont(Font("Arial", Font.BOLD, 40))
         loadingTexts[1].setFont(Font("Arial", Font.ITALIC, 40))
         window!!.add(loadingTexts[0], BorderLayout.CENTER)
@@ -57,11 +57,11 @@ object Client {
     @JvmStatic
     fun main(args: Array<String>) {
         val os = System.getProperty("os.name").lowercase(Locale.getDefault())
-        System.out.printf("CHATTiV${Shared.getVersion()}\nproduct of To Paint The Fish Studios™\n%s\n", os)
+        System.out.printf("ЧATV${Shared.getVersion()}\nproduct of To Paint The Fish Studios™\n%s\n", os)
 
         if (os.contains("nux")) {
             main_cfg =
-                Shared.getIniFromFpath(Paths.get(System.getProperty("user.home") + "/.chatti/client/config.ini"))
+                Shared.getIniFromFpath(Paths.get(System.getProperty("user.home") + "/.ЧAT/client/config.ini"))
         }
         initWindow()
 

@@ -1,4 +1,4 @@
-package xyz.paintingthefish.chatti
+package xyz.paintingthefish.chat
 
 import org.ini4j.Wini
 import java.io.FileInputStream
