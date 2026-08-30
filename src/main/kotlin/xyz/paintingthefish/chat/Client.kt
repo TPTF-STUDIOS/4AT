@@ -1,6 +1,7 @@
 package xyz.paintingthefish.chat
 
 import org.ini4j.Wini
+import xyz.paintingthefish.chat.internals.Shared
 import java.awt.BorderLayout
 import java.awt.Font
 import java.awt.Toolkit
@@ -20,8 +21,6 @@ import kotlin.math.roundToInt
  * 
  * @author To Paint The Fish Studios™
  * @see Server for server software
- * 
- * @see xyz.paintingthefish.chat.ServerClass
  */
 object Client {
     var main_cfg: Wini? = null

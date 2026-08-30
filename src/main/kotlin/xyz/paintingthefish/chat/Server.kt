@@ -1,6 +1,8 @@
 package xyz.paintingthefish.chat
 
 import org.ini4j.Wini
+import xyz.paintingthefish.chat.internals.ServerClass
+import xyz.paintingthefish.chat.internals.Shared
 import java.io.File
 import java.util.*
 import kotlin.system.exitProcess

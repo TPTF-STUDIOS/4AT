@@ -1,4 +1,4 @@
-package xyz.paintingthefish.chat
+package xyz.paintingthefish.chat.internals
 
 import org.ini4j.Wini
 import org.java_websocket.WebSocket
@@ -10,7 +10,7 @@ import kotlin.math.round
 
 class ServerClass(conf: Wini?, recentMessageCacheSize: Int) :
     WebSocketServer(InetSocketAddress("::", Shared.defaultPort)) {
-    var recentMessagesBuffer: RecentMessages? = RecentMessages(recentMessageCacheSize)
+    var recentMessagesBuffer: RecentMessagesBuffer? = RecentMessagesBuffer(recentMessageCacheSize)
     var cfg: Wini? = conf
     val base64Decoder: Base64.Decoder = Base64.getDecoder()
     val base64Encoder: Base64.Encoder = Base64.getEncoder()

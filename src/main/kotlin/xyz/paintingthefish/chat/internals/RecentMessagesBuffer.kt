@@ -1,9 +1,11 @@
-package xyz.paintingthefish.chat
+package xyz.paintingthefish.chat.internals
 
 import java.nio.ByteBuffer
-import java.util.*
+import java.util.ArrayDeque
+import java.util.HashMap
+import java.util.Queue
 
-class RecentMessages(private val maxBufferSize: Int = 521233) {
+class RecentMessagesBuffer(private val maxBufferSize: Int = 521233) {
 
     enum class MessageBufferErrors {
         OK, TOO_BIG, TOO_SMALL
