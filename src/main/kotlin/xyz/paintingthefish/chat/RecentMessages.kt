@@ -3,44 +3,46 @@ package xyz.paintingthefish.chat
 import java.nio.ByteBuffer
 import java.util.*
 
-class RecentMessages {
-    constructor(maxSize: Int) {
-        maxBufferSize = maxSize
-    }
-    constructor()
+class RecentMessages(private val maxBufferSize: Int = 521233) {
 
     enum class MessageBufferErrors {
-        OK,
-        TOO_BIG,
-        TOO_SMALL,
+        OK, TOO_BIG, TOO_SMALL
     }
 
-    private var maxBufferSize: Int = 1 // to be overridden by constructor
+    // ArrayDeque handles chronological ordering (FIFO)
     private val messages: Queue<ByteArray> = ArrayDeque<ByteArray>(maxBufferSize)
+
+    // Index map handles INSTANT lookups by ID without looping
+    private val messageIndex: HashMap<Int, ByteArray> = HashMap(maxBufferSize)
 
     @Synchronized
     fun add(msg: ByteArray): MessageBufferErrors {
         if (msg.size < 2060) {
-            System.err.println("Message size is too short! :(")
             return MessageBufferErrors.TOO_SMALL
         } else if (msg.size > 3000) {
-            System.err.println("Message size is too long! :(")
             return MessageBufferErrors.TOO_BIG
         }
+
+        // If cache is full, evict from both the queue AND the index map
         if (messages.size >= maxBufferSize) {
-            messages.poll() // Discard the oldest message
+            val oldestMsg = messages.poll()
+            if (oldestMsg != null) {
+                val oldestId = ByteBuffer.wrap(oldestMsg).getInt()
+                messageIndex.remove(oldestId) // Keep memory clean!
+            }
         }
-        messages.offer(msg) // Add the newest message
+
+        // Grab the ID of the new message instantly from its first 4 bytes
+        val newId = ByteBuffer.wrap(msg).getInt()
+
+        messages.offer(msg)
+        messageIndex[newId] = msg // Instant indexing
         return MessageBufferErrors.OK
     }
 
+    @Synchronized
     fun getId(id: Int): ByteArray? {
-        for (barr in messages) {
-            val messageId = ByteBuffer.wrap(barr).getInt()
-            if (messageId == id) {
-                return barr
-            }
-        }
-        return null
+        // Blazing fast O(1) lookup. No loops, no lag, no object allocation!
+        return messageIndex[id]
     }
 }
