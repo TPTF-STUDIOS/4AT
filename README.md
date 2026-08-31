@@ -17,4 +17,6 @@ Anyway, I've got to get back to working on the server, bye!
 
 Sincerely Morx.
 
+#### to clear something up real quick: if you see a commit from 'max', it's from morx
+
 ### TPTF STUDIOS © 2026
