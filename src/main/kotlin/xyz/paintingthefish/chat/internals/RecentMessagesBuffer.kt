@@ -12,7 +12,7 @@ class RecentMessagesBuffer(private val maxBufferSize: Int = 521233) {
     }
 
     // ArrayDeque handles chronological ordering (FIFO)
-    private val messages: Queue<ByteArray> = ArrayDeque<ByteArray>(maxBufferSize)
+    private val messages: Queue<ByteArray> = ArrayDeque(maxBufferSize)
 
     // Index map handles INSTANT lookups by ID without looping
     private val messageIndex: HashMap<Int, ByteArray> = HashMap(maxBufferSize)

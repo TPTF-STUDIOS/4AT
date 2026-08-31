@@ -16,15 +16,15 @@ import java.util.*
  */
 class Shared {
 
-    enum class CLIArgStyles {
-        EqualSign,
-        Separate
+    enum class CliArgStyles {
+        EQUAL_SIGN,
+        SEPARATE
     }
 
     companion object {
         const val DEFAULT_PORT: Int = 1997
         fun getVersion(): String {
-            return Shared::class.java.`package`.implementationVersion ?: "IDKMAN"
+            return Shared::class.java.`package`.implementationVersion ?: "???"
         }
         fun hasFlag(args: Array<String>, rawFlag: String, caseSensitive: Boolean): Boolean {
             var flag = rawFlag
@@ -53,10 +53,10 @@ class Shared {
             return false
         }
 
-        fun getValue(args: Array<String>, key: String?, argStyle: CLIArgStyles?): String? {
+        fun getValue(args: Array<String>, key: String, argStyle: CliArgStyles): String? {
             var i = 0
 
-            if (argStyle == CLIArgStyles.Separate) {
+            if (argStyle == CliArgStyles.SEPARATE) {
                 for (arg in args) {
                     if (arg == key) {
                         try {
@@ -68,9 +68,9 @@ class Shared {
                     }
                     i++
                 }
-            } else if (argStyle == CLIArgStyles.EqualSign) {
+            } else if (argStyle == CliArgStyles.EQUAL_SIGN) {
                 for (arg in args) {
-                    if (arg.startsWith(key + "=")) {
+                    if (arg.startsWith("$key=")) {
                         return arg.split("=".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()[1]
                     }
                     i++
@@ -89,6 +89,8 @@ class Shared {
                     return Wini(`is`)
                 }
             } catch (e: FileNotFoundException) {
+                println("[INFO] Config file not found at: $path. Creating blank INI configuration.")
+                e.printStackTrace()
                 val ini = Wini()
                 try {
                     // 1. Get the parent folder path
@@ -130,6 +132,8 @@ class Shared {
                     return Wini(`is`)
                 }
             } catch (e: FileNotFoundException) {
+                println("[INFO] Config file not found at: $path. Creating blank INI configuration.")
+                e.printStackTrace()
                 val ini = Wini()
                 try {
                     // 1. Get the parent folder path
@@ -148,10 +152,14 @@ class Shared {
 
                     // FIX: Return the active ini object instead of an empty dummy
                     return ini
-                } catch (err: IOException) {
+                } catch (e: IOException) {
+                    println("[ERROR] Could not create empty config file: " + e.message)
+                    e.printStackTrace()
                     return Wini()
                 }
             } catch (e: IOException) {
+                e.printStackTrace()
+                println("[ERROR] Invalid file type or read failure: " + e.message)
                 return Wini()
             }
         }
