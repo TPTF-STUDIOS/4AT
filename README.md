@@ -15,6 +15,8 @@ now, the architecture will be where a server maintainer sets up a server, and th
 
 Anyway, I've got to get back to working on the server, bye!
 
+Sorry if the GUI looks ancient when done, we are using [Swing](https://en.wikipedia.org/wiki/Swing_(Java))
+
 Sincerely Morx.
 
 #### to clear something up real quick: if you see a commit from 'max', it's from morx
