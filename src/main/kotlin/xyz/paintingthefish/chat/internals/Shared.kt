@@ -56,27 +56,28 @@ class Shared {
         fun getValue(args: Array<String>, key: String, argStyle: CliArgStyles): String? {
             var i = 0
 
-            if (argStyle == CliArgStyles.SEPARATE) {
-                for (arg in args) {
-                    if (arg == key) {
-                        try {
-                            return args[i + 1]
-                        } catch (e: ArrayIndexOutOfBoundsException) {
-                            println("[ERROR] Fuck you.")
-                            throw e
+            when (argStyle) {
+                CliArgStyles.SEPARATE -> {
+                    for (arg in args) {
+                        if (arg == key) {
+                            try {
+                                return args[i + 1]
+                            } catch (e: ArrayIndexOutOfBoundsException) {
+                                println("[ERROR] Fuck you.")
+                                throw e
+                            }
                         }
+                        i++
                     }
-                    i++
                 }
-            } else if (argStyle == CliArgStyles.EQUAL_SIGN) {
-                for (arg in args) {
-                    if (arg.startsWith("$key=")) {
-                        return arg.split("=".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()[1]
+                CliArgStyles.EQUAL_SIGN -> {
+                    for (arg in args) {
+                        if (arg.startsWith("$key=")) {
+                            return arg.split("=".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()[1]
+                        }
+                        i++
                     }
-                    i++
                 }
-            } else {
-                System.err.println("UNRECOGNIZED CLIArgStyles member") // Should not be achievable but better safe than sorry
             }
             return null
         }
@@ -117,10 +118,6 @@ class Shared {
                 println("[ERROR] Invalid file type or read failure: " + e.message)
                 return Wini()
             }
-        }
-
-        fun isNullOrEmpty(str: String?): Boolean {
-            return str == null || str.isEmpty()
         }
 
         fun getIniFromFpath(fpath: String): Wini {
