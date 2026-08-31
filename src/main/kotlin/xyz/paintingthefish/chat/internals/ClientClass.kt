@@ -23,7 +23,7 @@ class ClientClass(conf: Wini?, uri: URI) :
     WebSocketClient(uri) {
     val serverUri: URI = uri
     override fun onOpen(handshakedata: ServerHandshake?) {
-        System.out.println("Successfully connected to $serverUri")
+        println("Successfully connected to $serverUri")
     }
 
     override fun onMessage(message: String?) {
