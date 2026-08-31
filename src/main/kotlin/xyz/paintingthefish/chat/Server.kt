@@ -65,7 +65,7 @@ object Server {
                 if (nl != "") nl else defaultValue
             )
             // "jdbc:sqlite:${cfg.get("info", "db")}"
-            val server = ServerClass(cfg, 130308); // closest approx. messages to fit in 256MiB
+            val server = ServerClass(cfg)
         }
         val cfg: Wini =
             Shared.getIniFromFpath(System.getProperty("user.home") + "/.ЧAT/server/config.ini")
