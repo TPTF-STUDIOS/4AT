@@ -8,9 +8,9 @@ import java.net.InetSocketAddress
 import java.util.Base64
 import kotlin.math.round
 
-class ServerClass(conf: Wini?, recentMessageCacheSize: Int) :
+class ServerClass(conf: Wini) :
     WebSocketServer(InetSocketAddress("::", Shared.defaultPort)) {
-    var recentMessagesBuffer: RecentMessagesBuffer? = RecentMessagesBuffer(recentMessageCacheSize)
+    var recentMessagesBuffer: RecentMessagesBuffer? = RecentMessagesBuffer(conf.get("info", "amount").toInt())
     var cfg: Wini? = conf
     val base64Decoder: Base64.Decoder = Base64.getDecoder()
     val base64Encoder: Base64.Encoder = Base64.getEncoder()
