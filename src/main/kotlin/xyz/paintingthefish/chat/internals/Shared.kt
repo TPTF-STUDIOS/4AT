@@ -22,7 +22,7 @@ class Shared {
     }
 
     companion object {
-        const val defaultPort: Int = 1997
+        const val DEFAULT_PORT: Int = 1997
         fun getVersion(): String {
             return Shared::class.java.`package`.implementationVersion ?: "IDKMAN"
         }

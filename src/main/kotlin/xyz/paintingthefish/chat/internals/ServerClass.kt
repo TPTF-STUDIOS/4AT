@@ -9,13 +9,14 @@ import java.util.Base64
 import kotlin.math.round
 
 class ServerClass(conf: Wini) :
-    WebSocketServer(InetSocketAddress("::", Shared.defaultPort)) {
+    WebSocketServer(InetSocketAddress("::", Shared.DEFAULT_PORT)) {
     var recentMessagesBuffer: RecentMessagesBuffer? = RecentMessagesBuffer(conf.get("info", "amount").toInt())
     var cfg: Wini? = conf
     val base64Decoder: Base64.Decoder = Base64.getDecoder()
     val base64Encoder: Base64.Encoder = Base64.getEncoder()
     val base64SizeOverhead: Float = (4.0f / 3.0f)
 
+    // originally planned for all of these to be shorts we converted but like its chill
     val OK: ByteArray = byteArrayOf(0x00, 0x00)
     val TOO_SHORT: ByteArray = byteArrayOf(0x00, 0x0A)
     val TOO_LONG: ByteArray = byteArrayOf(0x00, 0x0B)
