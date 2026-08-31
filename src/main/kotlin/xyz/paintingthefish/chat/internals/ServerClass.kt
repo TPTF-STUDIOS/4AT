@@ -23,6 +23,7 @@ class ServerClass(conf: Wini?, recentMessageCacheSize: Int) :
 
     override fun onStart() {
         System.err.println("ЧAT server starting on port " + getPort().toString())
+        TODO("well... idk but prolly something")
     }
 
     override fun onClose(conn: WebSocket, code: Int, reason: String?, remote: Boolean) {
@@ -35,6 +36,7 @@ class ServerClass(conf: Wini?, recentMessageCacheSize: Int) :
 
     override fun onError(conn: WebSocket, err: Exception?) {
         conn.close()
+        TODO("implement full handling of glitching WebSockets")
     }
 
     override fun onMessage(conn: WebSocket, message: String) {
@@ -53,9 +55,11 @@ class ServerClass(conf: Wini?, recentMessageCacheSize: Int) :
             conn.send(base64Encoder.encode(PARSING_ERROR))
             return
         }
+        TODO("basically everything else")
     }
 
     override fun onOpen(conn: WebSocket, handshake: ClientHandshake?) {
         conn.setAttachment<String>("")
+        TODO("implement the rest of the connection flow")
     }
 }
