@@ -1,3 +1,5 @@
+@file:Suppress("unused")
+
 package xyz.paintingthefish.chat.internals
 
 import org.ini4j.Wini

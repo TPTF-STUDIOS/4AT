@@ -8,8 +8,7 @@ import java.net.InetSocketAddress
 import java.util.Base64
 import kotlin.math.round
 
-/**
- * @suppress  */
+@Suppress("unused", "UnusedVariable")
 class ServerClass(conf: Wini) :
     WebSocketServer(InetSocketAddress("::", Shared.DEFAULT_PORT)) {
     var recentMessagesBuffer: RecentMessagesBuffer? = RecentMessagesBuffer(conf.get("info", "amount").toInt())
@@ -36,7 +35,7 @@ class ServerClass(conf: Wini) :
     override fun onClose(conn: WebSocket, code: Int, reason: String?, remote: Boolean) {
         System.err.printf(
             "[INFO] client %s disconnected. (code %d)\n",
-            Shared.getWiniFromStr(conn.getAttachment<String>()).get("info", "conn_id"),
+            Shared.getWiniFromStr(conn.getAttachment()).get("info", "conn_id"),
             code
         )
     }
@@ -56,7 +55,7 @@ class ServerClass(conf: Wini) :
         }
         try {
             val decodedMessage: ByteArray = base64Decoder.decode(message)
-            val userData: Wini = Wini(conn.getAttachment<String>().reader())
+            val userData = Wini(conn.getAttachment<String>().reader())
         } catch (e: Exception) {
             e.printStackTrace()
             conn.send(base64Encoder.encode(parsingError))
@@ -66,7 +65,7 @@ class ServerClass(conf: Wini) :
     }
 
     override fun onOpen(conn: WebSocket, handshake: ClientHandshake?) {
-        conn.setAttachment<String>("")
+        conn.setAttachment("")
         TODO("implement the rest of the connection flow")
     }
 }

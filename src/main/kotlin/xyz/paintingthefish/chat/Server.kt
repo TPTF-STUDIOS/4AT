@@ -1,3 +1,5 @@
+@file:Suppress("UnusedVariable")
+
 package xyz.paintingthefish.chat
 
 import org.ini4j.Wini
@@ -13,8 +15,9 @@ import kotlin.system.exitProcess
  * @version 0.0.0
  * @see Client
  */
+@Suppress("unused")
 object Server {
-    private val server_instance: ServerClass? = null
+    private val serverInstance: ServerClass? = null
 
     @JvmStatic
     fun main(args: Array<String>) {
@@ -23,7 +26,7 @@ object Server {
         System.out.printf("ЧATV${Shared.getVersion()} Server Software\nproduct of To Paint The Fish Studios™\n%s\n", os)
 
         if (!os.contains("nux")) {
-            System.err.println("[ERROR] ЧAT Server software only runs on linux");
+            System.err.println("[ERROR] ЧAT Server software only runs on linux")
             exitProcess(1)
         }
 
@@ -36,7 +39,7 @@ object Server {
             val cfg: Wini =
                 Shared.getIniFromFpath(System.getProperty("user.home") + "/.ЧAT/server/config.ini")
             println("Welcome to the ЧAT provider setup wizard!")
-            var defaultValue: Any = Objects.requireNonNullElse<String>(cfg.get("info", "name"), "ЧATProvider")
+            var defaultValue: Any = Objects.requireNonNullElse(cfg.get("info", "name"), "ЧATProvider")
             System.out.printf(
                 "What would you like the provider to be named? (may be changed by clients you authorize)? (%s)\n>> ",
                 defaultValue
@@ -47,13 +50,13 @@ object Server {
                 "name",
                 if (nl != "") nl else defaultValue
             )
-            defaultValue = Objects.requireNonNullElse<String>(
+            defaultValue = Objects.requireNonNullElse(
                 cfg.get("info", "name"),
                 System.getProperty("user.home") + "/.ЧAT/server/conf.db"
             )
             System.out.printf(
                 "Where would you like to put the SQLite database containing info? (%s)\n>> ",
-                Objects.requireNonNullElse<String?>(
+                Objects.requireNonNullElse(
                     cfg.get("info", "port"),
                     System.getProperty("user.home") + "/.ЧAT/server/conf.db"
                 )
